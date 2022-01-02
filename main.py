@@ -1,4 +1,5 @@
 from tkinter import *
+from tkinter import messagebox
 import os
 import random
 
@@ -25,12 +26,24 @@ def gen_pwd():
 # ---------------------------- SAVE PASSWORD ------------------------------- #
 def save_user_details():
     cwd = os.getcwd()
-    with open(os.path.join(cwd, "Users.txt"), mode='a') as f:
-        user = f"{site_entry.get()} | {email_entry.get()} | {pwd_entry.get()}\n"
-        f.write(user)
-    site_entry.delete(0, END)
-    email_entry.delete(0, END)
-    pwd_entry.delete(0, END)
+    user = f"{site_entry.get()} | {email_entry.get()} | {pwd_entry.get()}\n"
+
+    if len(site_entry.get()) <= 0 and len(pwd_entry.get()) <= 0:
+        messagebox.showinfo(title="Warning", message="Your can't save empty record to file. Fill the require details.")
+        site_entry.focus()
+    else:
+        answer = messagebox.askokcancel(title=site_entry.get().title(),
+                                        message=f"You have entered these details:\nEmail: {email_entry.get()}\n"
+                                                f"Password: {pwd_entry.get()}\nAre they correct to be saved?")
+    if answer and len(site_entry.get()) > 3 and len(pwd_entry.get()) > 9:
+        with open(os.path.join(cwd, "Users.txt"), mode='a') as f:
+            f.write(user)
+            site_entry.delete(0, END)
+            pwd_entry.delete(0, END)
+        messagebox.showinfo(title="Confirmation", message="Your details are saved to file.")
+    else:
+        messagebox.showinfo(title="Cancel", message="Your details are not saved to file.")
+        site_entry.focus()
 
 
 # ---------------------------- UI SETUP ------------------------------- #
