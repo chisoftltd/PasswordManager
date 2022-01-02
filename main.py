@@ -1,4 +1,6 @@
 from tkinter import *
+import os
+import random
 
 # ---------------------------- CONSTANTS ------------------------------- #
 PINK = "#e2979c"
@@ -6,9 +8,34 @@ RED = "#e7305b"
 GREEN = "#9bdeac"
 YELLOW = "#f7f5dd"
 FONT_NAME = "Courier"
+ascii_lowercase = 'abcdefghijklmnopqrstuvwxyz'
+ascii_uppercase = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+punctuation = '!"#$%&\'()*+,-./:;<=>?@[\\]^_`{|}~'
+digits = '0123456789'
+pwd = None
+
+
 # ---------------------------- PASSWORD GENERATOR ------------------------------- #
+# def gen_pwd():
+#     global pwd
+#     for char in range(random.randint(10, 20)):
+#         pwd = pwd + random.choice(ascii_lowercase)
+#         pwd = pwd + random.choice(ascii_uppercase)
+#         pwd = pwd + random.choice(punctuation)
+#         pwd = pwd + random.choice(digits)
+#         pwd_entry.insert(pwd)
+
 
 # ---------------------------- SAVE PASSWORD ------------------------------- #
+def save_user_details():
+    cwd = os.getcwd()
+    with open(os.path.join(cwd, "Users.txt"), mode='a') as f:
+        user = f"{site_entry.get()} | {email_entry.get()} | {pwd_entry.get()}\n"
+        f.write(user)
+    site_entry.delete(0, END)
+    email_entry.delete(0, END)
+    pwd_entry.delete(0, END)
+
 
 # ---------------------------- UI SETUP ------------------------------- #
 window = Tk()
@@ -26,12 +53,14 @@ site_label.grid(row=2, column=0)
 
 site_entry = Entry(width=52)
 site_entry.grid(row=2, column=1, columnspan=2)
+site_entry.focus()
 
 email_label = Label(text="Email/Username: ", font=(FONT_NAME, 10, "bold"))
 email_label.grid(row=3, column=0)
 
 email_entry = Entry(width=52)
 email_entry.grid(row=3, column=1, columnspan=2)
+email_entry.insert(END, "python@gmail.com")
 
 pwd_label = Label(text="Password", font=(FONT_NAME, 10, "bold"))
 pwd_label.grid(row=4, column=0)
@@ -42,7 +71,7 @@ pwd_entry.grid(row=4, column=1)
 pwd_button = Button(text="Generate Password")
 pwd_button.grid(row=4, column=2)
 
-add_button = Button(text="Add", width=44)
+add_button = Button(text="Add", width=44, command=save_user_details)
 add_button.grid(row=5, column=1, columnspan=2)
 
 window.mainloop()
