@@ -12,18 +12,25 @@ ascii_lowercase = 'abcdefghijklmnopqrstuvwxyz'
 ascii_uppercase = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
 punctuation = '!"#$%&\'()*+,-./:;<=>?@[\\]^_`{|}~'
 digits = '0123456789'
-pwd = None
+pwd = ''
 
 
 # ---------------------------- PASSWORD GENERATOR ------------------------------- #
-# def gen_pwd():
-#     global pwd
-#     for char in range(random.randint(10, 20)):
-#         pwd = pwd + random.choice(ascii_lowercase)
-#         pwd = pwd + random.choice(ascii_uppercase)
-#         pwd = pwd + random.choice(punctuation)
-#         pwd = pwd + random.choice(digits)
-#         pwd_entry.insert(pwd)
+def gen_pwd():
+    global pwd
+    pwd = ''
+    pwd_entry.delete(0, END)
+    for char in range(10):
+        pwd = pwd + random.choice(ascii_lowercase)
+        print(pwd)
+        pwd = pwd + random.choice(ascii_uppercase)
+        print(pwd)
+        pwd = pwd + random.choice(punctuation)
+        print(pwd)
+        pwd = pwd + random.choice(digits)
+        if len(pwd) > 15:
+            break
+    pwd_entry.insert(END, pwd)
 
 
 # ---------------------------- SAVE PASSWORD ------------------------------- #
@@ -68,7 +75,7 @@ pwd_label.grid(row=4, column=0)
 pwd_entry = Entry(width=33)
 pwd_entry.grid(row=4, column=1)
 
-pwd_button = Button(text="Generate Password")
+pwd_button = Button(text="Generate Password", command=gen_pwd)
 pwd_button.grid(row=4, column=2)
 
 add_button = Button(text="Add", width=44, command=save_user_details)
