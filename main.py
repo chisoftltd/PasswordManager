@@ -2,6 +2,7 @@ from tkinter import *
 from tkinter import messagebox
 import os
 from random import choice, shuffle, randint
+import pyperclip
 
 # ---------------------------- CONSTANTS ------------------------------- #
 PINK = "#e2979c"
@@ -42,6 +43,7 @@ def gen_pwd():
     password = "".join(password_list)
 
     pwd_entry.insert(END, password)
+    pyperclip.copy(password)
 
 
 # ---------------------------- SAVE PASSWORD ------------------------------- #
