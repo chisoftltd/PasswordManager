@@ -8,10 +8,7 @@ RED = "#e7305b"
 GREEN = "#9bdeac"
 YELLOW = "#f7f5dd"
 FONT_NAME = "Courier"
-ascii_lowercase = 'abcdefghijklmnopqrstuvwxyz'
-ascii_uppercase = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
-punctuation = '!"#$%&\'()*+,-./:;<=>?@[\\]^_`{|}~'
-digits = '0123456789'
+pwd_character = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!"#$%&\'()*+,-./:;<=>?@[\\]^_`{|}~0123456789'
 pwd = ''
 
 
@@ -20,16 +17,8 @@ def gen_pwd():
     global pwd
     pwd = ''
     pwd_entry.delete(0, END)
-    for char in range(10):
-        pwd = pwd + random.choice(ascii_lowercase)
-        print(pwd)
-        pwd = pwd + random.choice(ascii_uppercase)
-        print(pwd)
-        pwd = pwd + random.choice(punctuation)
-        print(pwd)
-        pwd = pwd + random.choice(digits)
-        if len(pwd) > 15:
-            break
+    while len(pwd) < 15:
+        pwd = pwd + random.choice(pwd_character)
     pwd_entry.insert(END, pwd)
 
 
