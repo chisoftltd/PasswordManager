@@ -58,7 +58,7 @@ def save_user_details():
         answer = messagebox.askokcancel(title=site_entry.get().title(),
                                         message=f"You have entered these details:\nEmail: {email_entry.get()}\n"
                                                 f"Password: {pwd_entry.get()}\nAre they correct to be saved?")
-    if answer and len(site_entry.get()) > 3 and len(pwd_entry.get()) > 9:
+    if answer:
         with open(os.path.join(cwd, "Users.txt"), mode='a') as f:
             f.write(user)
             site_entry.delete(0, END)
